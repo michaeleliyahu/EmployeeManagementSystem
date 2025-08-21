@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using EmployeeManagementSystem.Attributes;
 
 namespace EmployeeManagementSystem.Models
 {
@@ -18,8 +19,10 @@ namespace EmployeeManagementSystem.Models
         [EmailAddress(ErrorMessage = "Invalid Email format")]
         public string Email { get; set; } = string.Empty;
 
-        [Required]
+        [Required(ErrorMessage = "Hire Date is required")]
         [DataType(DataType.Date)]
+        [Display(Name = "Hire Date")]
+        [HireDateNotInFuture]
         public DateTime HireDate { get; set; }
 
         [Range(1, double.MaxValue, ErrorMessage = "Salary must be greater than 0")]
