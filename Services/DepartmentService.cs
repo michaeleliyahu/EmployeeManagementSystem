@@ -48,7 +48,7 @@ namespace EmployeeManagementSystem.Services
             }
 
             // Check for duplicate name (excluding current department)
-            if (GetAll().Any(d => d.Id != department.Id && 
+            if (GetAll().Any(d => d.Id != department.Id &&
                                  d.Name.Equals(department.Name, StringComparison.OrdinalIgnoreCase)))
             {
                 throw new ArgumentException("Department name already exists.");

@@ -18,10 +18,10 @@ namespace EmployeeManagementSystem.Controllers
             try
             {
                 var dashboardData = _dashboardService.GetDashboardData(searchName, searchDeptId);
-                
+
                 // Get filtered employees for the current search
                 var filteredEmployees = _dashboardService.SearchEmployees(searchName, searchDeptId);
-                
+
                 ViewBag.TotalEmployees = filteredEmployees.Count;
                 ViewBag.GroupedByDept = _dashboardService.GetEmployeesByDepartment();
                 ViewBag.RecentHires = _dashboardService.GetRecentHires();
@@ -34,7 +34,7 @@ namespace EmployeeManagementSystem.Controllers
             catch (Exception ex)
             {
                 TempData["Error"] = ex.Message;
-                
+
                 // Return empty dashboard in case of error
                 ViewBag.TotalEmployees = 0;
                 ViewBag.GroupedByDept = new List<object>();

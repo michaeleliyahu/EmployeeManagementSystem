@@ -25,7 +25,7 @@ namespace EmployeeManagementSystem.Services
 
             if (!string.IsNullOrWhiteSpace(searchName))
             {
-                employees = employees.Where(e => 
+                employees = employees.Where(e =>
                     e.FirstName.Contains(searchName, StringComparison.OrdinalIgnoreCase) ||
                     e.LastName.Contains(searchName, StringComparison.OrdinalIgnoreCase)
                 ).ToList();
@@ -56,7 +56,7 @@ namespace EmployeeManagementSystem.Services
             var cutoffDate = DateTime.Today.AddDays(-days);
             var employees = _employeeRepository.GetAll();
             var departments = _departmentRepository.GetAll();
-            
+
             return employees
                 .Where(e => e.HireDate >= cutoffDate)
                 .OrderByDescending(e => e.HireDate)
@@ -76,7 +76,7 @@ namespace EmployeeManagementSystem.Services
         public object GetDashboardData(string searchName = "", int? departmentId = null)
         {
             var filteredEmployees = SearchEmployees(searchName, departmentId);
-            
+
             return new
             {
                 TotalEmployees = filteredEmployees.Count,

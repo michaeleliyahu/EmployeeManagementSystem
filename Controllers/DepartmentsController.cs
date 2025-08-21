@@ -136,7 +136,7 @@ namespace EmployeeManagementSystem.Controllers
 
                 // Check if department can be deleted
                 ViewBag.CanDelete = _departmentService.CanDelete(id);
-                
+
                 return View(department);
             }
             catch (Exception ex)

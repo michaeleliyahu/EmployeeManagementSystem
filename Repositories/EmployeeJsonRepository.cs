@@ -12,7 +12,7 @@ namespace EmployeeManagementSystem.Repositories
         {
             // Ensure App_Data directory exists
             Directory.CreateDirectory("App_Data");
-            
+
             // Initialize file if it doesn't exist
             if (!File.Exists(_filePath))
             {

@@ -19,7 +19,7 @@ namespace EmployeeManagementSystem.Controllers
         public IActionResult Index(int pageNumber = 1, string sortBy = "FirstName")
         {
             const int pageSize = 10;
-            
+
             try
             {
                 var employees = _employeeService.GetAllWithPaging(pageNumber, sortBy, pageSize);

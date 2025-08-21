@@ -97,7 +97,7 @@ namespace EmployeeManagementSystem.Services
             if (string.IsNullOrWhiteSpace(searchName))
                 return GetAll();
 
-            return GetAll().Where(e => 
+            return GetAll().Where(e =>
                 e.FirstName.Contains(searchName, StringComparison.OrdinalIgnoreCase) ||
                 e.LastName.Contains(searchName, StringComparison.OrdinalIgnoreCase)
             ).ToList();
