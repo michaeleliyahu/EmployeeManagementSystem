@@ -1,0 +1,64 @@
+@model IEnumerable<EmployeeManagementSystem.Models.Employee>
+
+<h2>Employees</h2>
+<p>
+    <a asp-action="Create">Create New Employee</a>
+</p>
+
+<form method="get" class="mb-2">
+    <label>Sort by:</label>
+    <select name="sortBy" onchange="this.form.submit()">
+        @{
+            var sortBy = ViewBag.SortBy as string ?? "FirstName";
+        }
+        <option value="FirstName" selected="@(sortBy == "FirstName" ? "selected" : null)">First Name</option>
+        <option value="LastName" selected="@(sortBy == "LastName" ? "selected" : null)">Last Name</option>
+        <option value="HireDate" selected="@(sortBy == "HireDate" ? "selected" : null)">Hire Date</option>
+        <option value="Salary" selected="@(sortBy == "Salary" ? "selected" : null)">Salary</option>
+    </select>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Hire Date</th>
+            <th>Salary</th>
+            <th>Department</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var emp in Model)
+    {
+        <tr>
+            <td>@emp.FirstName</td>
+            <td>@emp.LastName</td>
+            <td>@emp.Email</td>
+            <td>@emp.HireDate.ToShortDateString()</td>
+            <td>@emp.Salary</td>
+            <td>@emp.Department?.Name</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@emp.Id">Edit</a> |
+                <form asp-action="Delete" asp-route-id="@emp.Id" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete @emp.FirstName @emp.LastName?');">
+                    @Html.AntiForgeryToken()
+                    <input type="submit" value="Delete" class="btn btn-danger btn-sm" />
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<nav aria-label="Page navigation">
+    <ul class="pagination">
+        @for (int i = 1; i <= (int)ViewBag.TotalPages; i++)
+        {
+            <li class="page-item @(i == (int)ViewBag.PageNumber ? "active" : "")">
+                <a class="page-link" href="?pageNumber=@i&sortBy=@ViewBag.SortBy">@i</a>
+            </li>
+        }
+    </ul>
+</nav>

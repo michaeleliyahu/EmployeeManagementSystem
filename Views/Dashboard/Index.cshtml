@@ -1,0 +1,67 @@
+@{
+    ViewData["Title"] = "Dashboard";
+
+    // Cast ViewBag.Departments to IEnumerable<Department>
+    var departments = ((IEnumerable<EmployeeManagementSystem.Models.Department>)ViewBag.Departments);
+}
+
+<h1>Dashboard</h1>
+
+<!-- ===== Search Form ===== -->
+<form method="get" class="mb-3">
+    <input type="text" name="searchName" placeholder="Search by name" value="@ViewBag.SearchName" />
+    <select name="searchDeptId">
+        <option value="">All Departments</option>
+        @foreach (var dept in departments)
+        {
+            var isSelected = Convert.ToInt32(ViewBag.SearchDeptId) == dept.Id;
+            <option value="@dept.Id" selected="@(isSelected ? "selected" : null)">@dept.Name</option>
+        }
+    </select>
+    <button type="submit">Search</button>
+</form>
+
+<!-- ===== Total Employees ===== -->
+<p>Total Employees: <strong>@ViewBag.TotalEmployees</strong></p>
+
+<!-- ===== Employees by Department ===== -->
+<h3>Employees by Department</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Department</th>
+            <th>Count</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var group in ViewBag.GroupedByDept)
+        {
+            <tr>
+                <td>@group.DepartmentName</td>
+                <td>@group.Count</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- ===== Recent Hires ===== -->
+<h3>Recent Hires (Last 30 Days)</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Hire Date</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var emp in ViewBag.RecentHires)
+        {
+            <tr>
+                <td>@emp.Employee.FirstName @emp.Employee.LastName</td>
+                <td>@emp.DepartmentName</td>
+                <td>@emp.Employee.HireDate.ToShortDateString()</td>
+            </tr>
+        }
+    </tbody>
+</table>

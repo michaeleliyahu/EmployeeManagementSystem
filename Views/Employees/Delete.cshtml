@@ -1,0 +1,20 @@
+@model EmployeeManagementSystem.Models.Employee
+
+@{
+    ViewData["Title"] = "Delete Employee";
+}
+
+<h2>Delete Employee</h2>
+
+<div>
+    <h4>Are you sure you want to delete this employee?</h4>
+    <div>
+        <strong>@Model.FirstName @Model.LastName</strong> - @Model.Email
+    </div>
+</div>
+
+<form asp-action="Delete" method="post" onsubmit="return confirm('Are you sure you want to delete?');">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Delete</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+</form>

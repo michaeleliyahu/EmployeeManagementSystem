@@ -1,0 +1,9 @@
+services:
+  ems:
+    build: .
+    container_name: ems
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./App_Data:/app/App_Data
+      - ./DataProtection-Keys:/root/.aspnet/DataProtection-Keys 

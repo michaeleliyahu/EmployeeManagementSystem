@@ -1,0 +1,39 @@
+@model IEnumerable<EmployeeManagementSystem.Models.Department>
+
+@{
+    ViewData["Title"] = "Departments";
+}
+
+<h2>Departments</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New Department</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Employees Count</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+    @foreach (var dept in Model)
+    {
+        <tr>
+            <td>@dept.Id</td>
+            <td>@dept.Name</td>
+            <td>@dept.Employees.Count</td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@dept.Id">Edit</a> |
+                <form asp-action="Delete" asp-route-id="@dept.Id" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete department @dept.Name?');">
+                    @Html.AntiForgeryToken()
+                    <input type="submit" value="Delete" class="btn btn-danger btn-sm" />
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
